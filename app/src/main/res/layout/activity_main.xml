@@ -1,0 +1,50 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="user"
+            type="com.example.ibanez_xiphos.databindingsample.model.User" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/onlineView"
+            android:layout_width="@dimen/indicator_size"
+            android:layout_height="@dimen/indicator_size"
+            android:layout_margin="4dp"
+            android:background="@{user.isOnline? @drawable/shape_online: @drawable/shape_empty}"
+            tools:background="@drawable/shape_online"
+            tools:layout_height="12dp"
+            tools:layout_width="12dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{user.name + ' ' + user.surname}"
+                tools:text="name surname" />
+
+            <TextView
+                android:id="@+id/textViewStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{user.status}"
+                tools:text="status" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>
