@@ -21,47 +21,57 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:title="@{@string/profile(viewModel.user.name)}"/>
+            app:title="@{@string/profile(viewModel.user.name)}" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="?attr/actionBarSize"
-            android:paddingTop="@dimen/activity_horizontal_margin"
-            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:orientation="vertical"
             android:paddingEnd="@dimen/activity_horizontal_margin"
-            android:orientation="vertical">
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_horizontal_margin">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="5dp">
+                android:layout_height="wrap_content">
 
-                <View
-                    android:id="@+id/onlineView"
-                    android:layout_width="@dimen/indicator_size"
-                    android:layout_height="@dimen/indicator_size"
-                    android:layout_margin="6dp"
-                    android:background="@{viewModel.user.isOnline? @drawable/shape_online: @drawable/shape_empty}"
-                    tools:background="@drawable/shape_online"
-                    tools:layout_height="12dp"
-                    tools:layout_width="12dp" />
-
-                <ImageView
+                <RelativeLayout
+                    android:id="@+id/avatarLayout"
                     android:layout_width="@dimen/avatar_size"
-                    android:layout_height="@dimen/avatar_size"
-                    android:src="@{viewModel.user.photo}"
-                    tools:src="@drawable/shape_online" />
+                    android:layout_height="@dimen/avatar_size">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="@dimen/avatar_size"
+                        android:layout_height="@dimen/avatar_size"
+                        android:src="@{viewModel.user.photo}" />
+
+                    <View
+                        android:id="@+id/onlineView"
+                        android:layout_width="@dimen/indicator_size"
+                        android:layout_height="@dimen/indicator_size"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginEnd="@dimen/indicator_margin"
+                        android:layout_marginRight="@dimen/indicator_margin"
+                        android:layout_marginTop="@dimen/indicator_margin"
+                        android:background="@{viewModel.isOnline.get ? @drawable/shape_online : @drawable/shape_empty}" />
+
+
+                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="10dp">
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_toEndOf="@+id/avatarLayout"
+                    android:layout_toRightOf="@+id/avatarLayout"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/textViewName"
+                        style="@style/NameTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{viewModel.user.name + ' ' + viewModel.user.surname}"
@@ -69,15 +79,19 @@
 
                     <TextView
                         android:id="@+id/textViewStatus"
+                        style="@style/StatusTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="@{viewModel.user.status}"
+                        android:text="@{viewModel.status}"
                         tools:text="status" />
 
                 </LinearLayout>
 
-            </LinearLayout>
+            </RelativeLayout>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="@dimen/activity_horizontal_margin_half" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -110,35 +124,66 @@
 
             </LinearLayout>
 
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="@dimen/activity_horizontal_margin_half" />
+
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="5dp">
+                android:orientation="horizontal">
 
                 <Button
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/add_as_friend"
-                    android:visibility="@{!viewModel.isFriend.get}"
-                    app:onClick="@{viewModel.changeFriendshipStatus}"
-                    android:id="@+id/button2" />
+                    android:layout_weight="1"
+                    android:text="@string/message"
+                    android:theme="@style/AccentButton"
+                    app:onClick="@{viewModel.showDevMessage}" />
 
-                <Button
-                    android:layout_width="match_parent"
+                <RelativeLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/already_friends"
-                    android:visibility="@{viewModel.isFriend.get}"
-                    app:onClick="@{viewModel.changeFriendshipStatus}"
-                    android:id="@+id/button" />
+                    android:layout_weight="1"
+                    android:visibility="@{viewModel.isLoaded.get}">
 
-                <TextView
-                    style="@style/StatusTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.status}" />
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/add_as_friend"
+                        android:textColor="@android:color/white"
+                        android:theme="@style/AccentButton"
+                        android:visibility="@{!viewModel.isFriend.get}"
+                        app:onClick="@{viewModel.changeFriendshipStatus}" />
+
+                    <com.example.ibanez_xiphos.databindingsample.ui.custom.CenteredIconButton
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/selector_ic_check"
+                        android:drawablePadding="@dimen/activity_vertical_margin_half"
+                        android:drawableStart="@drawable/selector_ic_check"
+                        android:text="@string/already_friends"
+                        android:textColor="@color/primary"
+                        android:visibility="@{viewModel.isFriend.get}"
+                        app:onClick="@{viewModel.changeFriendshipStatus}" />
+
+                </RelativeLayout>
+
+                <ProgressBar
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/small_progressbar_size"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:visibility="@{!viewModel.isLoaded.get}" />
 
             </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:configuration="@{viewModel.recyclerConfiguration}" />
 
         </LinearLayout>
 
