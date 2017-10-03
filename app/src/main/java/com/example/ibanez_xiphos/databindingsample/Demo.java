@@ -48,4 +48,6 @@ public class Demo {
     public static void simulateLoading(Runnable onLoaded, boolean isLong) {
         new Handler().postDelayed(onLoaded, isLong ? LOADING_LONG : LOADING_SHORT);
     }
+
+    //test
 }

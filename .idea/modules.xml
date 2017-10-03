@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/DataBindingSample.iml" filepath="$PROJECT_DIR$/DataBindingSample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DataBinding.iml" filepath="$PROJECT_DIR$/DataBinding.iml" />
+      <module fileurl="file://D:\Development\workspace android\.SimpleExamples\DataBinding\DataBindingSample.iml" filepath="D:\Development\workspace android\.SimpleExamples\DataBinding\DataBindingSample.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
